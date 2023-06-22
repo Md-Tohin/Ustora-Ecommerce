@@ -42,6 +42,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->name = $request->name;
         $category->description = $request->description;
+        $category->is_top = $request->is_top;
         $category->save();
         return redirect()->route('manage.category')->with('msg', "Category Updated Successfully!");
     }

@@ -82,6 +82,22 @@
             }
         @endif
     </script>
+
+    @yield('page-script')
+
+<script>
+    //  add to cart
+    function addToCart(){
+        // let product_id = $('#product_price').text();
+        let product_id = $('#product_id').val();
+        let quantity = $('#quantity').val();
+        console.log(quantity);
+
+        // let product_id = $(this).attr('product_id');
+        // let qty = $(this).attr('quantity');
+        // console.log(product_id);
+    }
+</script>
 </body>
 
 </html>

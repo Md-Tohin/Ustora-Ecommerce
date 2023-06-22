@@ -31,10 +31,17 @@
                                     <label for="image" class="form-label">Choose Category Image</label>
                                     <input type="file" class="form-control" name="image" id="image">
                                 </div>
-                                <div class="mb-3">
+
+                                <div class="mb-4">
                                     <img src="{{ asset($category->image) }}" style="height: 120px; width: 80px"
                                         alt="">
                                 </div>
+
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" value="1"  name="is_top" id="is_top" {{ $category->is_top == 1 ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="is_top">Top Category</label>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary mt-3">Uodate Category</button>
                             </form>
                         </div>

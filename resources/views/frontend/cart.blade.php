@@ -30,11 +30,11 @@
                 <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <form method="post" action="#">
+                            <form action="{{ route('cart.update') }}" method="post">
+                                @csrf                                
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                         <tr>
-
                                             <th class="product-thumbnail">Image</th>
                                             <th class="product-name">Product</th>
                                             <th class="product-price">Price</th>
@@ -44,10 +44,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($carts as $cart)
+                                        @php
+                                            $subTotal = 0;
+                                        @endphp
+                                        @foreach ($carts as $key => $cart)
+                                            <input type="hidden" name="id[]" value="{{ $cart->id }}">
+                                            <input type="hidden" name="product_id[]" value="{{ $cart->product_id }}">
                                             <tr class="cart_item">
                                                 <td class="product-thumbnail">
-
                                                     <a href="{{url('single-product/'.$cart->product_id)}}">
                                                         @if (isset($cart->product->image) && file_exists($cart->product->image))
                                                         <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail"
@@ -67,17 +71,25 @@
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
                                                         <input type="button" class="minus" value="-">
-                                                        <input type="number" size="4" class="input-text qty text"
-                                                            title="Qty" value="{{$cart->quantity}}" min="0" step="1">
+
+                                                        <input type="number" class="input-text qty text"
+                                                            title="Qty" name="quantity[]" class="quantityField" value="{{$cart->quantity}}" min="1">
                                                         <input type="button" class="plus" value="+">
+                                                        {{-- <input type="button" id="minusBtn" class="minus" value="-">
+                                                        <input type="number" class="input-text qty text"
+                                                            title="Qty" id="quantityField" value="{{$cart->quantity}}" min="1" >
+                                                        <input type="button" id="plusBtn" class="plus" value="+"> --}}
                                                     </div>
                                                 </td>
+                                                @php
+                                                    $totalPrice = $cart->product->price * $cart->quantity;
+                                                    $subTotal = $subTotal + $totalPrice;
+                                                @endphp
                                                 <td class="product-subtotal">
-                                                    <span class="amount">Tk. {{$cart->product->price * $cart->quantity}}</span>
+                                                    <span class="amount">Tk. {{ $totalPrice }}</span>
                                                 </td>
                                                 <td class="product-remove">
-                                                    {{-- {{route('cart.product-delete', $cart->id)}} --}}
-                                                    <a href="" title="Remove this item" class="remove" href="#">×</a>
+                                                    <a href="{{route('cart.item-delete', $cart->id)}}" title="Remove this item" class="remove" href="#">×</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -92,8 +104,7 @@
                                                 </div>
                                                 <div class="" style="float: right;">
                                                     <input type="submit" value="Update Cart" name="update_cart" class="button">
-                                                    <input type="submit" value="Checkout" name="proceed"
-                                                    class="checkout-button button alt wc-forward">
+                                                    <a href="{{ route('frontend.checkout') }}" class="checkout-button button alt wc-forward" style="background: #5a88ca; color: #fff; padding: 13px 20px; text-transform: uppercase; border: medium none;  text-decoration: none;">Checkout</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -108,31 +119,49 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Cart Subtotal</th>
-                                                <td><span class="amount">£15.00</span></td>
+                                                <td><span class="amount">Tk. {{ $subTotal }}</span></td>
                                             </tr>
-
+                                            @php
+                                                $tax = $subTotal * 5 / 100;
+                                                $grandTotal = $subTotal + $tax;
+                                            @endphp
                                             <tr class="shipping">
-                                                <th>Shipping and Handling</th>
-                                                <td>Free Shipping</td>
+                                                <th>Tax (5%)</th>
+                                                <td>Tk. {{ $tax }}</td>
                                             </tr>
 
                                             <tr class="order-total">
-                                                <th>Order Total</th>
-                                                <td><strong><span class="amount">£15.00</span></strong> </td>
+                                                <th>Grand Total</th>
+                                                <td><strong><span class="amount">Tk. {{ $grandTotal }}</span></strong> </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-
-
-
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
+@endsection
+
+@section('page-script')
+<script>
+    let quantity = $('#quantityField').val();
+    // $('#minusBtn').on('click', function(e){
+    //     console.log(quantity);
+    // });
+
+    // $('#plusBtn').on('click', function(e){
+    //     console.log(quantity);
+    // });
+    function minusBtn(qty){
+        console.log(qty);
+    }
+
+    function plusBtn(){
+        console.log(quantity);
+    }
+</script>
 @endsection

@@ -1,35 +1,32 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\backend\CartController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
-use App\Http\Controllers\backend\CartController;
-use App\Http\Controllers\backend\CategoryController;
-use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\SliderController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\backend\CategoryController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', [FrontendController::class, "index"])->name("frontend.home");
 Route::get('/shop', [FrontendController::class, "shop"])->name("frontend.shop");
 Route::get('/single-product/{id}', [FrontendController::class, "singleProduct"])->name("frontend.single_product");
-Route::get('/cart', [FrontendController::class, "cart"])->name("frontend.cart");
+
+//  cart routes
+Route::get('/cart', [CartController::class, "cart"])->name("frontend.cart");
+Route::post('user/cart/store', [CartController::class, 'storeCart'])->name('cart.store');
+Route::get('user/cart/remove/{id}', [CartController::class, 'removeCartItem'])->name('cart.item-delete');
+Route::post('user/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+
+//  checkout routes
 Route::get('/checkout', [FrontendController::class, "checkout"])->name("frontend.checkout");
 
-
-//  user cart
-Route::post('user/cart/store', [CartController::class, 'storeCart'])->name('cart.store');
-
+//  order routes
+Route::post('order/store', [OrderController::class, 'orderStore'])->name('order.store');
 
 
 Route::middleware([

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('image');
+            $table->tinyInteger('is_top')->default(0)->nullable()->comment('1 = Yes, 0 = No');
             $table->timestamps();
         });
     }

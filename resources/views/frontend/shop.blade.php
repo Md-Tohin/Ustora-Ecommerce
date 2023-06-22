@@ -37,14 +37,17 @@
                                 <img src="{{asset('assets/no-img.png')}}" style="height: 250px;" alt="">
                             @endif
                         </div>
-                        <h2><a href="{{url('single-product/'.$product->id)}}">{{$product->name}}</a></h2>
+                        <h2 style="height: 45px;"><a href="{{url('single-product/'.$product->id)}}">{{$product->name}}</a></h2>
                         <div class="product-carousel-price">
-                            <ins>Tk. {{$product->price}}</ins> <del></del>
+                            <ins id="product_price">Tk. {{$product->price}}</ins> <del></del>
                         </div>
-
                         <div class="product-option-shop">
-                            <a onclick="addToCart()" quantity="1" product_id="70"
-                             href="" class="add_to_cart_button" >Add to cart</a>
+                            <form action="{{route('cart.store')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="add_to_cart_button btn-sm">Add to cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -78,16 +81,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        //  add to cart
-        function addToCart(e){
-            e.preventDefault();
-            let product_id = $(this).attr('product_id');
-            let qty = $(this).attr('quantity');
-            console.log(product_id);
-        }
-    </script>
-    
+    </div>    
 @endsection

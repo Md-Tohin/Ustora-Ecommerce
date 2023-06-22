@@ -13,11 +13,11 @@
                 <ul class="nav navbar-nav">
                     <li class="@yield('home-active')"><a href="{{ route('frontend.home') }}">Home</a></li>
                     <li class="@yield('shop-active')"><a href="{{ route('frontend.shop') }}">Shop page</a></li>
-                    <li class="@yield('single-product-active')"><a href="">Single product</a></li>
-                    <li class="@yield('cart-active')"><a href="{{ route('frontend.cart') }}">Cart</a></li>
-                    <li class="@yield('checkout-active')"><a href="{{ route('frontend.checkout') }}">Checkout</a></li>
-                    <li class=""><a href="#">Category</a></li>
-                    <li class=""><a href="#">Others</a></li>
+
+                    @foreach ($top_categories as $category)
+                        <li class="@yield('category-{{ $category->id }}')"><a href="">{{ $category->name }}</a></li>
+                    @endforeach
+
                     <li class=""><a href="#">Contact</a></li>
                 </ul>
             </div>
