@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\CartController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\SliderController;
@@ -26,7 +27,8 @@ Route::get('/cart', [FrontendController::class, "cart"])->name("frontend.cart");
 Route::get('/checkout', [FrontendController::class, "checkout"])->name("frontend.checkout");
 
 
-
+//  user cart
+Route::post('user/cart/store', [CartController::class, 'storeCart'])->name('cart.store');
 
 
 
@@ -40,6 +42,8 @@ Route::middleware([
     Route::get('/category/add', [CategoryController::class, "addCategory"])->name('add.category');
     Route::post('/category/store', [CategoryController::class, "storeCategory"])->name('store.category');
     Route::get('/category/manage', [CategoryController::class, "manageCategory"])->name('manage.category');
+    Route::get('category/edit/{id}', [CategoryController::class, 'edit'])->name('edit.category');
+    Route::post('category/update/{id}', [CategoryController::class, 'update'])->name('update.category');
 
     //  product
     Route::get('/product/manage', [ProductController::class, 'manageProduct'])->name('manage.product');

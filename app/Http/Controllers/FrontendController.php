@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Slider;
 use App\Models\Product;
@@ -34,7 +35,8 @@ class FrontendController extends Controller
 
     //  cart
     public function cart(){
-        return view("frontend.cart");
+        $carts = Cart::with('product')->orderBy('id', 'desc')->get();
+        return view("frontend.cart", compact('carts'));
     }
 
     //  cart
