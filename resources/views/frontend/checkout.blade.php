@@ -72,8 +72,8 @@ active
                                                         <label class="" for="shipping_name">Name <abbr title="required"
                                                                 class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" value="" id="shipping_name" name="name"
-                                                            class="input-text" placeholder="Name">
+                                                        <input type="text" value="" id="shipping_name" name="shipping_name"
+                                                            class="input-text" placeholder="Name" data-validation="required">
                                                     </p>
 
                                                     <p id="shipping_email_name_field"
@@ -82,14 +82,14 @@ active
                                                                 title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text" value="" id="shipping_email_name"
-                                                            name="email" class="input-text" placeholder="Email">
+                                                            name="shipping_email" class="input-text" placeholder="Email" data-validation="required">
                                                     </p>
                                                     <div class="clear"></div>
 
                                                     <p id="shipping_phone_field" class="form-row form-row-wide">
                                                         <label class="" for="shipping_phone">Phone</label>
                                                         <input type="text" value="" placeholder="Phone"
-                                                            id="shipping_phone" name="phone" class="input-text ">
+                                                            id="shipping_phone" name="shipping_phone" class="input-text" data-validation="required">
                                                     </p>
 
                                                     <p id="shipping_address_1_field"
@@ -98,8 +98,8 @@ active
                                                                 title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text" value="" placeholder="Street address"
-                                                            id="shipping_address_1" name="address"
-                                                            class="input-text ">
+                                                            id="shipping_address_1" name="shipping_address"
+                                                            class="input-text" data-validation="required">
                                                     </p>
                                                     <div class="clear"></div>
                                                 </div>
@@ -107,7 +107,7 @@ active
                                                     <label class="" for="order_comments">Order Notes</label>
                                                     <textarea cols="5" rows="2"
                                                         placeholder="Notes about your order, e.g. special notes for delivery."
-                                                        id="order_comments" class="input-text "
+                                                        id="order_comments" class="input-text"
                                                         name="comments"></textarea>
                                                 </p>
                                             </div>
@@ -125,7 +125,7 @@ active
                                                             title="required" class="required">*</abbr>
                                                     </label>
                                                     <select class="country_to_state country_select"
-                                                        id="billing_division" name="division_id">
+                                                        id="billing_division" name="division_id" data-validation="required">
                                                         <option value="">Select a Division</option>
                                                         <option value="1">Dhaka</option>
                                                         <option value="2">Commila</option>
@@ -140,7 +140,7 @@ active
                                                             title="required" class="required">*</abbr>
                                                     </label>
                                                     <select class="country_to_state country_select"
-                                                        id="billing_district" name="district_id">
+                                                        id="billing_district" name="district_id" data-validation="required">
                                                         <option value="">Select a District</option>
                                                         <option value="1">Jamalpur</option>
                                                         <option value="2">Sripur</option>
@@ -155,7 +155,7 @@ active
                                                             class="required">*</abbr>
                                                     </label>
                                                     <select class="country_to_state country_select" id="billing_state"
-                                                        name="state_id">
+                                                        name="state_id" data-validation="required">
                                                         <option value="">Select a State</option>
                                                         <option value="1">Madargonj</option>
                                                         <option value="2">Jamalpur Sadar</option>
@@ -167,8 +167,7 @@ active
                                                     <label class="" for="billing_country">Country <abbr title="required"
                                                             class="required">*</abbr>
                                                     </label>
-                                                    <select class="country_to_state country_select" id="billing_country"
-                                                        name="country">
+                                                    <select class="country_to_state country_select" id="billing_country" name="country" data-validation="required">
                                                         <option value="">Select a country…</option>
                                                         <option value="AX">Åland Islands</option>
                                                         <option value="AF">Afghanistan</option>
@@ -426,7 +425,7 @@ active
                                                     </label>
                                                     <input type="text" value="" placeholder="Postcode / Zip"
                                                         id="billing_postcode" name="postcode"
-                                                        class="input-text">
+                                                        class="input-text" data-validation="required">
                                                 </p>
                                                 <div class="clear"></div>
                                             </div>
@@ -492,7 +491,12 @@ active
                                         </tr>
                                         <tr class="order-total">
                                             <th>Grand Total</th>
-                                            <td><strong><span class="amount">Tk. {{ $grandTotal }}</span></strong> </td>
+                                            <td>
+                                                <strong>
+                                                    <span class="amount">Tk. {{ $grandTotal }} </span>
+                                                    <input type="hidden" name="total_amount" value="{{ $grandTotal }}">
+                                                </strong> 
+                                            </td>
                                         </tr>
 
                                     </tfoot>
@@ -509,6 +513,12 @@ active
                                             <input type="radio" data-order_button_text="" value="stripe"
                                                 name="payment_method" class="input-radio" id="payment_method_bacs">
                                             <label for="payment_method_bacs">Direct Bank Transfer </label>
+                                        </li>
+
+                                        <li class="payment_method_ssl">
+                                            <input type="radio" data-order_button_text="" value="ssl"
+                                                name="payment_method" class="input-radio" id="payment_method_ssl">
+                                            <label for="payment_method_ssl">SSL Ecommerce </label>
                                         </li>
                                         
                                         <li class="payment_method_paypal">

@@ -78,7 +78,7 @@
                             <div class="single-product">
                                 <div class="product-f-image">
                                     @if (isset($product->image) && file_exists($product->image))
-                                        <img src="{{asset($product->image)}}" style="height: 220px; padding: 15px" alt="">
+                                        <img src="{{asset($product->image)}}" style="height: 220px;" alt="">
                                     @else
                                         <img src="{{asset('assets/no-img.png')}}" style="height: 220px;" alt="">
                                     @endif

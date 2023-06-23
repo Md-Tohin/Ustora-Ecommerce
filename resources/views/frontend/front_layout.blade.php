@@ -41,6 +41,13 @@
     <!-- Bootstrap JS form CDN -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+    <script src="{{ asset('assets/common/form-validator/jquery.form-validator.min.js') }}"></script>
+    <script>
+        $.validate({
+            lang: 'en'
+        })
+    </script>
+    
     <!-- jQuery sticky menu -->
     <script src="{{ asset('assets/frontend') }}/js/owl.carousel.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/jquery.sticky.js"></script>

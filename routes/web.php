@@ -28,6 +28,8 @@ Route::get('/checkout', [FrontendController::class, "checkout"])->name("frontend
 //  order routes
 Route::post('order/store', [OrderController::class, 'orderStore'])->name('order.store');
 
+//  thanks routes
+Route::get('/thanks', [OrderController::class, 'thanks'])->name('frontend.thanks');
 
 Route::middleware([
     'auth:sanctum',

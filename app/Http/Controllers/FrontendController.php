@@ -39,9 +39,18 @@ class FrontendController extends Controller
 
     //  cart
     public function checkout(){
-        $top_categories = Category::where('is_top', 1)->orderBy('id', 'asc')->get();
-        $carts = Cart::with('product')->where('user_id', Auth::id())->orderBy('id', 'desc')->get();
-        return view("frontend.checkout", compact('carts', 'top_categories'));
+        if (Auth::check()) {
+            $top_categories = Category::where('is_top', 1)->orderBy('id', 'asc')->get();
+            $carts = Cart::with('product')->where('user_id', Auth::id())->orderBy('id', 'desc')->get();
+            return view("frontend.checkout", compact('carts', 'top_categories'));
+        }
+        else{
+            $notification = array(
+                'message' => 'You are login First, then try again!',
+                'alert-type' => 'error',
+            );
+            return redirect()->back()->with($notification);
+        } 
     }
 
 
