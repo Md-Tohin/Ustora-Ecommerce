@@ -53,7 +53,7 @@ Manage Slider
                                     <td>{{$slider->title}}</td>
                                     <td>{{$slider->sub_title}}</td>
                                     <td>
-                                        <a href="{{route('edit.product', $slider->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                        <a href="{{route('edit.slider', 1)}}" class="btn btn-sm btn-success">Edit</a>
                                         <a href="" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>

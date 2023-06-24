@@ -164,6 +164,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Darryldecode\Cart\CartServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -186,6 +187,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Image' => Intervention\Image\Facades\Image::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),

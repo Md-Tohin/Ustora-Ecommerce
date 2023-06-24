@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\backend\CartController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
-
+use Laravel\Jetstream\Rules\Role;
 
 //  home page routes
 Route::get('/', [FrontendController::class, "index"])->name("frontend.home");
@@ -32,6 +33,9 @@ Route::post('order/store', [OrderController::class, 'orderStore'])->name('order.
 
 //  thanks routes
 Route::get('/thanks', [OrderController::class, 'thanks'])->name('frontend.thanks');
+
+//  user order view
+Route::get('/user/orders', [UserController::class, 'orders'])->name('user.order.view');
 
 Route::middleware([
     'auth:sanctum',
@@ -58,6 +62,7 @@ Route::middleware([
     Route::get('/slider/manage', [SliderController::class, 'manageSlider'])->name('manage.slider');
     Route::get('/slider/add', [SliderController::class, 'addSlider'])->name('add.slider');
     Route::post('/slider/store', [SliderController::class, 'storeSlider'])->name('store.slider');
+    Route::get('/slider/edit/{slider_id}', [SliderController::class, 'editSlider'])->name('edit.slider');
 
     //  brand
     Route::resource('brands', BrandController::class);
