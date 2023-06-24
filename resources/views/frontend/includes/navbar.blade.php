@@ -13,9 +13,9 @@
                 <ul class="nav navbar-nav">
                     <li class="@yield('home-active')"><a href="{{ route('frontend.home') }}">Home</a></li>
                     <li class="@yield('shop-active')"><a href="{{ route('frontend.shop') }}">Shop page</a></li>
-
+                    
                     @foreach ($top_categories as $category)
-                        <li class="@yield('category-{{ $category->id }}')"><a href="">{{ $category->name }}</a></li>
+                        <li class="@yield('category_'.$category->id )"><a href="{{ route('frontend.shop', $category->id) }}">{{ $category->name }}</a></li>
                     @endforeach
 
                     <li class=""><a href="#">Contact</a></li>

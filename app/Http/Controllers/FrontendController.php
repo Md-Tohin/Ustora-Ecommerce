@@ -23,10 +23,15 @@ class FrontendController extends Controller
     }
 
     //  shop
-    public function shop(){
-        $top_categories = Category::where('is_top', 1)->orderBy('id', 'asc')->get();
-        $products = Product::orderBy('id', 'desc')->get();
-        return view('frontend.shop', compact('products', 'top_categories'));
+    public function shop($id = null){
+        if ($id) {
+            $products = Product::where('category_id', $id)->orderBy('id', 'desc')->paginate(12);
+        }
+        else{
+            $products = Product::orderBy('id', 'desc')->paginate(12);
+        }
+        $top_categories = Category::where('is_top', 1)->orderBy('id', 'asc')->get();        
+        return view('frontend.shop', compact('products', 'top_categories', 'id'));
     }
 
     //  single product

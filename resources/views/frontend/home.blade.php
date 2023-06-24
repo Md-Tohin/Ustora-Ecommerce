@@ -78,11 +78,11 @@
                             <div class="single-product">
                                 <div class="product-f-image">
                                     @if (isset($product->image) && file_exists($product->image))
-                                        <img src="{{asset($product->image)}}" style="height: 220px;" alt="">
+                                        <img src="{{asset($product->image)}}" style="height: 250px;" alt="">
                                     @else
-                                        <img src="{{asset('assets/no-img.png')}}" style="height: 220px;" alt="">
+                                        <img src="{{asset('assets/no-img.png')}}" style="height: 250px;" alt="">
                                     @endif
-                                    <div class="product-hover">
+                                    <div class="product-hover">                                        
                                         <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add
                                             to cart</a>
                                         <a href="{{url('single-product/'.$product->id)}}" class="view-details-link"><i class="fa fa-link"></i>

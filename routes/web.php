@@ -11,9 +11,11 @@ use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
 
 
-
+//  home page routes
 Route::get('/', [FrontendController::class, "index"])->name("frontend.home");
-Route::get('/shop', [FrontendController::class, "shop"])->name("frontend.shop");
+//  shop products routes
+Route::get('/shop/{id?}', [FrontendController::class, "shop"])->name("frontend.shop");
+//  single page routes
 Route::get('/single-product/{id}', [FrontendController::class, "singleProduct"])->name("frontend.single_product");
 
 //  cart routes

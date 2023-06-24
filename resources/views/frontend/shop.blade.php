@@ -4,9 +4,17 @@
     Shop page
 @endsection
 
-@section('shop-active')
-    active
-@endsection
+@if (isset($id))
+    @section('category_'.$id)
+        active
+    @endsection
+@else
+    @section('shop-active')
+        active
+    @endsection
+@endif    
+
+
 
 @section('content')
     <div class="product-big-title-area">
@@ -26,39 +34,47 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-
-            @foreach ($products as $product)
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-shop-product">
-                        <div class="product-upper">
-                            @if (isset($product->image) && file_exists($product->image))
-                                <img src="{{asset($product->image)}}" style="height: 250px; padding: 15px;" alt="">
-                            @else
-                                <img src="{{asset('assets/no-img.png')}}" style="height: 250px;" alt="">
-                            @endif
-                        </div>
-                        <h2 style="height: 45px;"><a href="{{url('single-product/'.$product->id)}}">{{$product->name}}</a></h2>
-                        <div class="product-carousel-price">
-                            <ins id="product_price">Tk. {{$product->price}}</ins> <del></del>
-                        </div>
-                        <div class="product-option-shop">
-                            <form action="{{route('cart.store')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="add_to_cart_button btn-sm">Add to cart</button>
-                            </form>
+            @if (count($products) > 0)
+                @foreach ($products as $product)
+                    <div class="col-md-3 col-sm-6">
+                        <div class="single-shop-product">
+                            <div class="product-upper">
+                                @if (isset($product->image) && file_exists($product->image))
+                                    <img src="{{asset($product->image)}}" style="height: 250px; padding: 15px;" alt="">
+                                @else
+                                    <img src="{{asset('assets/no-img.png')}}" style="height: 250px;" alt="">
+                                @endif
+                            </div>
+                            <h2 style="height: 45px;"><a href="{{url('single-product/'.$product->id)}}">{{$product->name}}</a></h2>
+                            <div class="product-carousel-price">
+                                <ins id="product_price">Tk. {{$product->price}}</ins> <del></del>
+                            </div>
+                            <div class="product-option-shop">
+                                <form action="{{route('cart.store')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="add_to_cart_button btn-sm">Add to cart</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+
+                
+
+            @else
+                <h2 class="text-danger text-center" style="font-size: 36px;">Product Not Found</h2>
+            @endif
+          
 
             </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-pagination text-center">
-                        <nav>
+                        {{ $products->links() }}
+                        {{-- <nav>
                             <ul class="pagination">
                                 <li>
                                     <a href="#" aria-label="Previous">
@@ -76,7 +92,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> --}}
                     </div>
                 </div>
             </div>

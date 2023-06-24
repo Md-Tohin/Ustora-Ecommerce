@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Shop</h2>
+                        <h2>Single Product Details</h2>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,6 @@
                                 @foreach ($related_products as $item)
                                     <div class="single-product">
                                         <div class="product-f-image">
-
                                             @if (isset($item->image) && file_exists($item->image))
                                                 <img src="{{asset($item->image)}}" style="height: 250px; padding: 15px;" alt="">
                                             @else
